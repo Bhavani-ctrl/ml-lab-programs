@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ML Lab Programs</title>
-<style>
-body {font-family: Arial; margin: 20px;}
-pre {background:#f4f4f4; padding:10px; white-space:pre-wrap;}
-</style>
-</head>
-<body>
-<h1>Machine Learning Lab Programs</h1>
-<pre>import pandas as pd
+    PROGRAM 01
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
@@ -18,8 +7,8 @@ from sklearn.datasets import fetch_california_housing
 
 california = fetch_california_housing(as_frame=True)
 df = california.frame
-print(&quot;Dataset Shape:&quot;, df.shape)
-print(&quot;\nNumerical Features:&quot;)
+print("Dataset Shape:", df.shape)
+print("\nNumerical Features:")
 print(df.columns)
 
 plt.figure(figsize=(15, 12))
@@ -27,9 +16,9 @@ plt.figure(figsize=(15, 12))
 for i, column in enumerate(df.columns, 1):
     plt.subplot(3, 3, i)
     plt.hist(df[column], bins=30)
-    plt.title(f&quot;Histogram of {column}&quot;)
+    plt.title(f"Histogram of {column}")
     plt.xlabel(column)
-    plt.ylabel(&quot;Frequency&quot;)
+    plt.ylabel("Frequency")
 
 plt.tight_layout()
 plt.show()
@@ -39,7 +28,7 @@ plt.figure(figsize=(15, 12))
 for i, column in enumerate(df.columns, 1):
     plt.subplot(3, 3, i)
     plt.boxplot(df[column], vert=False)
-    plt.title(f&quot;Box Plot of {column}&quot;)
+    plt.title(f"Box Plot of {column}")
     plt.xlabel(column)
 
 plt.tight_layout()
@@ -55,65 +44,37 @@ for column in df.columns:
     lower_bound = Q1 - 1.5 * IQR
     upper_bound = Q3 + 1.5 * IQR
     
-    outliers = df[(df[column] &lt; lower_bound) | (df[column] &gt; upper_bound)]
+    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
     outlier_summary[column] = outliers.shape[0]
 
-print(&quot;\nOutlier Count per Feature:&quot;)
+print("\nOutlier Count per Feature:")
 for feature, count in outlier_summary.items():
-    print(f&quot;{feature}: {count}&quot;)
-                               this is  program 1                                                                                                      import pandas as pd
+    print(f"{feature}: {count}")                                                                                                
+
+         PROGRAM 02
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.datasets import fetch_california_housing
 
+data = fetch_california_housing(as_frame=True)
+df = data.frame   
 
-california = fetch_california_housing(as_frame=True)
-df = california.frame
-print(&quot;Dataset Shape:&quot;, df.shape)
-print(&quot;\nNumerical Features:&quot;)
-print(df.columns)
-
-plt.figure(figsize=(15, 12))
-
-for i, column in enumerate(df.columns, 1):
-    plt.subplot(3, 3, i)
-    plt.hist(df[column], bins=30)
-    plt.title(f&quot;Histogram of {column}&quot;)
-    plt.xlabel(column)
-    plt.ylabel(&quot;Frequency&quot;)
-
-plt.tight_layout()
+correlation_matrix = df.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
+plt.title('Correlation Matrix of California Housing Features')
 plt.show()
 
-plt.figure(figsize=(15, 12))
 
-for i, column in enumerate(df.columns, 1):
-    plt.subplot(3, 3, i)
-    plt.boxplot(df[column], vert=False)
-    plt.title(f&quot;Box Plot of {column}&quot;)
-    plt.xlabel(column)
-
-plt.tight_layout()
+sns.pairplot(df, diag_kind='kde', plot_kws={'alpha': 0.5})
+plt.suptitle('Pair Plot of California Housing Features', y=1.02)
 plt.show()
 
-outlier_summary = {}
 
-for column in df.columns:
-    Q1 = df[column].quantile(0.25)
-    Q3 = df[column].quantile(0.75)
-    IQR = Q3 - Q1
-    
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    
-    outliers = df[(df[column] &lt; lower_bound) | (df[column] &gt; upper_bound)]
-    outlier_summary[column] = outliers.shape[0]
-
-print(&quot;\nOutlier Count per Feature:&quot;)
-for feature, count in outlier_summary.items():
-    print(f&quot;{feature}: {count}&quot;)
-
-     program  2                                                                                                                                       import numpy as np
+     program  3   
+import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -129,35 +90,44 @@ data_reduced = pca.fit_transform(data)
 
 plt.figure(figsize=(8, 6))
 plt.scatter(data_reduced[:, 0], data_reduced[:, 1], c=labels)
-plt.title(&quot;PCA on Iris Dataset&quot;)
-plt.xlabel(&quot;Principal Component 1&quot;)
-plt.ylabel(&quot;Principal Component 2&quot;)
+plt.title("PCA on Iris Dataset")
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
 plt.grid()
-plt.show()         program  3                                                                                                                        import pandas as pd
+plt.show()        
+        
+        
+        program  4 
+  import pandas as pd
 
 data = pd.DataFrame({
-    &quot;Outlook&quot;:[&quot;Sunny&quot;,&quot;Sunny&quot;,&quot;rainy&quot;,&quot;Sunny&quot;],
-    &quot;Temperature&quot;:[&quot;warm&quot;,&quot;warm&quot;,&quot;cold&quot;,&quot;warm&quot;],
-    &quot;Humidity&quot;:[&quot;normal&quot;,&quot;high&quot;,&quot;high&quot;,&quot;high&quot;],
-    &quot;Windy&quot;:[&quot;strong&quot;,&quot;strong&quot;,&quot;strong&quot;,&quot;strong&quot;],
-    &quot;water&quot;:[&quot;warm&quot;,&quot;warm&quot;,&quot;warm&quot;,&quot;cold&quot;],
-    &quot;forecast&quot;:[&quot;same&quot;,&quot;same&quot;,&quot;change&quot;,&quot;change&quot;],
-    &quot;enjoysport&quot;:[&quot;Yes&quot;,&quot;Yes&quot;,&quot;no&quot;,&quot;Yes&quot;]
+    "Outlook":["Sunny","Sunny","rainy","Sunny"],
+    "Temperature":["warm","warm","cold","warm"],
+    "Humidity":["normal","high","high","high"],
+    "Windy":["strong","strong","strong","strong"],
+    "water":["warm","warm","warm","cold"],
+    "forecast":["same","same","change","change"],
+    "enjoysport":["Yes","Yes","no","Yes"]
 })
 
-print(&quot;Training Data:&quot;)
+print("Training Data:")
 print(data)
 
 attributes = data.columns[:-1]
-hypothesis = list(data[data[&quot;enjoysport&quot;]==&quot;Yes&quot;].iloc[0][attributes])
+hypothesis = list(data[data["enjoysport"]=="Yes"].iloc[0][attributes])
 
 for _, row in data.iterrows():
-    if row[&quot;enjoysport&quot;] == &quot;Yes&quot;:
+    if row["enjoysport"] == "Yes":
         for i in range(len(hypothesis)):
             if hypothesis[i] != row[attributes[i]]:
-                hypothesis[i] = &#x27;?&#x27;
+                hypothesis[i] = '?'
 
-print(&quot;\nFinal Hypothesis:&quot;, hypothesis)                                                        program 4                                  import numpy as np
+print("\nFinal Hypothesis:", hypothesis)
+
+
+        PROGRAM 5 
+
+   import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
 
@@ -165,7 +135,7 @@ data = np.random.rand(100)
 
 train = data[:50]
 test = data[50:]
-labels = [&quot;Class1&quot; if x &lt;= 0.5 else &quot;Class2&quot; for x in train]
+labels = ["Class1" if x <= 0.5 else "Class2" for x in train]
 
 for k in [1,2,3,4,5,20,30]:
 
@@ -175,25 +145,30 @@ for k in [1,2,3,4,5,20,30]:
         d = sorted((abs(x-tr), lab) for tr, lab in zip(train, labels))
         pred.append(Counter(l for _, l in d[:k]).most_common(1)[0][0])
 
-    print(f&quot;\nResults for k = {k}&quot;)
+    print(f"\nResults for k = {k}")
     for i, p in enumerate(pred, 51):
-        print(f&quot;x{i} = {test[i-51]:.4f} --&gt; {p}&quot;)
+        print(f"x{i} = {test[i-51]:.4f} --> {p}")
 
-    c1 = [test[i] for i in range(50) if pred[i] == &quot;Class1&quot;]
-    c2 = [test[i] for i in range(50) if pred[i] == &quot;Class2&quot;]
+    c1 = [test[i] for i in range(50) if pred[i] == "Class1"]
+    c2 = [test[i] for i in range(50) if pred[i] == "Class2"]
 
     plt.figure(figsize=(10,6))
     plt.scatter(train, [0]*50,
-                c=[&quot;blue&quot; if l==&quot;Class1&quot; else &quot;red&quot; for l in labels])
+                c=["blue" if l=="Class1" else "red" for l in labels])
 
-    plt.scatter(c1, [1]*len(c1), c=&quot;blue&quot;, marker=&quot;x&quot;)
-    plt.scatter(c2, [1]*len(c2), c=&quot;red&quot;, marker=&quot;x&quot;)
+    plt.scatter(c1, [1]*len(c1), c="blue", marker="x")
+    plt.scatter(c2, [1]*len(c2), c="red", marker="x")
 
-    plt.title(f&quot;k-NN Classification Results for k = {k}&quot;)
+    plt.title(f"k-NN Classification Results for k = {k}")
     plt.grid()
 
-print(&quot;\nClassification Complete!&quot;)
-plt.show()                                                     program 5                                                                             import numpy as np
+print("\nClassification Complete!")
+plt.show()
+
+
+    PROGRAM  06
+
+  import numpy as np
 import matplotlib.pyplot as plt
 
 np.random.seed(42)
@@ -208,14 +183,18 @@ for x in X:
     w = np.exp(-(X-x)**2/(2*tau**2))
     y_pred.append(np.sum(w*y)/np.sum(w))
 
-plt.scatter(X, y, color=&#x27;red&#x27;, label=&#x27;Data&#x27;)
-plt.plot(X, y_pred, color=&#x27;blue&#x27;, label=&#x27;LWR Fit&#x27;)
-plt.xlabel(&#x27;X&#x27;)
-plt.ylabel(&#x27;Y&#x27;)
-plt.title(&#x27;Locally Weighted Regression&#x27;)
+plt.scatter(X, y, color='red', label='Data')
+plt.plot(X, y_pred, color='blue', label='LWR Fit')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Locally Weighted Regression')
 plt.legend()
 plt.grid()
-plt.show()                   program  6                                                                                                                    import pandas as pd
+plt.show()
+
+    PROGRAM   07
+
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
@@ -225,7 +204,7 @@ from sklearn.pipeline import make_pipeline
 
 
 data = fetch_california_housing(as_frame=True)
-X = data.data[[&quot;AveRooms&quot;]]
+X = data.data[["AveRooms"]]
 y = data.target
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -234,9 +213,9 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-plt.scatter(X_test, y_test, color=&quot;blue&quot;)
-plt.plot(X_test, y_pred, color=&quot;red&quot;)
-plt.title(&quot;Linear Regression&quot;)
+plt.scatter(X_test, y_test, color="blue")
+plt.plot(X_test, y_pred, color="red")
+plt.title("Linear Regression")
 plt.show()
 
 
@@ -244,10 +223,15 @@ poly = make_pipeline(PolynomialFeatures(2), LinearRegression())
 poly.fit(X_train, y_train)
 y_poly = poly.predict(X_test)
 
-plt.scatter(X_test, y_test, color=&quot;blue&quot;)
-plt.scatter(X_test, y_poly, color=&quot;red&quot;)
-plt.title(&quot;Polynomial Regression&quot;)
-plt.show()                              programm 7                                                                                                import numpy as np
+plt.scatter(X_test, y_test, color="blue")
+plt.scatter(X_test, y_poly, color="red")
+plt.title("Polynomial Regression")
+plt.show()    
+
+
+    PROGRAM  08
+
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
@@ -262,10 +246,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 clf = DecisionTreeClassifier()
 clf.fit(X_train, y_train)
 
-print(&quot;Accuracy:&quot;, clf.score(X_test, y_test) * 100)
+print("Accuracy:", clf.score(X_test, y_test) * 100)
 
 pred = clf.predict([X_test[0]])
-print(&quot;Predicted Class:&quot;, &quot;Benign&quot; if pred[0] == 1 else &quot;Malignant&quot;)
+print("Predicted Class:", "Benign" if pred[0] == 1 else "Malignant")
 
 plt.figure(figsize=(12,8))
 plot_tree(clf, filled=True,
@@ -273,7 +257,10 @@ plot_tree(clf, filled=True,
           class_names=data.target_names)
 plt.show()
 
-              programmmm  8                                                                                                                             from sklearn.datasets import fetch_olivetti_faces
+
+    PROGRAM  09 
+
+from sklearn.datasets import fetch_olivetti_faces
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
@@ -292,17 +279,21 @@ model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
 
-print(&quot;Accuracy:&quot;, accuracy_score(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
 
 
 fig, ax = plt.subplots(3, 5, figsize=(10, 6))
 
 for a, img, t, p in zip(ax.ravel(), X_test, y_test, y_pred):
-    a.imshow(img.reshape(64, 64), cmap=&quot;gray&quot;)
-    a.set_title(f&quot;True:{t} Pred:{p}&quot;)
-    a.axis(&quot;off&quot;)
+    a.imshow(img.reshape(64, 64), cmap="gray")
+    a.set_title(f"True:{t} Pred:{p}")
+    a.axis("off")
 
-plt.show()                  programmm  9                                                                                                                 import pandas as pd
+plt.show()
+
+    PROGRAM  10
+
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.cluster import KMeans
@@ -322,10 +313,10 @@ kmeans = KMeans(n_clusters=2, random_state=42)
 clusters = kmeans.fit_predict(X)
 
 # Evaluation
-print(&quot;Confusion Matrix:&quot;)
+print("Confusion Matrix:")
 print(confusion_matrix(y, clusters))
 
-print(&quot;\nClassification Report:&quot;)
+print("\nClassification Report:")
 print(classification_report(y, clusters))
 
 # PCA for visualization
@@ -333,10 +324,8 @@ pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X)
 
 # Plot clusters
-plt.scatter(X_pca[:,0], X_pca[:,1], c=clusters, cmap=&#x27;coolwarm&#x27;)
-plt.title(&quot;K-Means Clustering of Breast Cancer Dataset&quot;)
-plt.xlabel(&quot;Principal Component 1&quot;)
-plt.ylabel(&quot;Principal Component 2&quot;)
-plt.show()                    programmm 10                                                                                                          make a link of this whole programs                                                                                                                                                        </pre>
-</body>
-</html>
+plt.scatter(X_pca[:,0], X_pca[:,1], c=clusters, cmap='coolwarm')
+plt.title("K-Means Clustering of Breast Cancer Dataset")
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.show()    
